@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+    <title>Студия Вышивки | Эксклюзивная вышивка на одежде</title>
+    <style>
+        /* ---------- Базовые сбросы ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            color: #2d2d2d;
+            background-color: #faf8f5;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- Шапка / Навигация ---------- */
+        header {
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            padding: 18px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.5em;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+        .logo span {
+            color: #f39c12;
+            font-weight: 700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 400;
+            transition: all 0.3s;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+            letter-spacing: 0.5px;
+        }
+        nav a:hover {
+            color: #f39c12;
+            border-bottom-color: #f39c12;
+            transform: translateY(-1px);
+        }
+
+        /* ---------- Главный экран (Hero) ---------- */
+        .hero {
+            background: linear-gradient(135deg, rgba(26, 37, 47, 0.88), rgba(44, 62, 80, 0.92)),
+                        url('https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, #faf8f5, transparent);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2em, 7vw, 4em);
+            font-weight: 200;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+        .hero h1 strong {
+            color: #f39c12;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1em, 2vw, 1.4em);
+            max-width: 600px;
+            margin-bottom: 35px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 16px 44px;
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.4);
+            letter-spacing: 1px;
+        }
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 35px rgba(243, 156, 18, 0.6);
+        }
+
+        /* ---------- Основной контент (две колонки) ---------- */
+        .main-content {
+            max-width: 1100px;
+            margin: -40px auto 0;
+            padding: 0 20px 50px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            flex: 1;
+            position: relative;
+            z-index: 3;
+        }
+
+        /* Левая колонка — услуги */
+        .services h2 {
+            font-size: 2em;
+            font-weight: 300;
+            color: #1a252f;
+            margin-bottom: 30px;
+            border-left: 5px solid #f39c12;
+            padding-left: 20px;
+            letter-spacing: 1px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            border: 1px solid rgba(243, 156, 18, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f39c12, #e67e22);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .service-card h3 {
+            color: #1a252f;
+            font-size: 1.15em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .service-card p {
+            font-size: 0.95em;
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ---------- Портфолио (без фото) ---------- */
+        .portfolio {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+        }
+
+        .portfolio h2 {
+            font-size: 2em;
+            font-weight: 300;
+            color: #1a252f;
+            margin-bottom: 30px;
+            border-left: 5px solid #f39c12;
+            padding-left: 20px;
+            letter-spacing: 1px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            border: 2px dashed #e8e4de;
+            background: linear-gradient(135deg, #faf8f5, #f0ede8);
+            cursor: default;
+        }
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            border-color: #f39c12;
+        }
+        .portfolio-item .icon {
+            font-size: 3em;
+            margin-bottom: 12px;
+            opacity: 0.7;
+        }
+        .portfolio-item .label {
+            color: #888;
+            font-size: 0.9em;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        .portfolio-item .coming {
+            color: #b3a89a;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        /* Правая колонка — боковая панель */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .widget {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            border: 1px solid rgba(243, 156, 18, 0.1);
+        }
+
+        .widget h3 {
+            color: #1a252f;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .contacts-list {
+            list-style: none;
+        }
+
+        .contacts-list li {
+            margin-bottom: 12px;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .contacts-list strong {
+            color: #1a252f;
+        }
+
+        .contacts-list a {
+            color: #2d2d2d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .contacts-list a:hover {
+            color: #f39c12;
+        }
+
+        /* ---------- Подвал (Footer) ---------- */
+        footer {
+            background: #1a252f;
+            color: #a0aab5;
+            text-align: center;
+            padding: 25px;
+            margin-top: auto;
+            font-size: 0.9em;
+            border-top: 3px solid #f39c12;
+        }
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- Медиа-запрос для мобильных ---------- */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                margin-top: 20px;
+            }
+            header {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+            nav ul {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.2em;
+                letter-spacing: 2px;
+            }
+            nav ul {
+                gap: 12px;
+            }
+            nav a {
+                font-size: 0.85em;
+            }
+            .btn {
+                padding: 14px 30px;
+                font-size: 0.95em;
+            }
+            .service-card {
+                padding: 20px 18px;
+            }
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><span>✦</span> Вышивка <span>Стиль</span></div>
+        <nav>
+            <ul>
+                <li><a href="#services">Услуги</a></li>
+                <li><a href="#portfolio">Портфолио</a></li>
+                <li><a href="#contacts">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Эксклюзивная <strong>вышивка</strong><br>на вашей одежде</h1>
+            <p>Создаем уникальный стиль, брендируем корпоративную одежду и воплощаем любые ваши идеи в нитях с гарантией качества.</p>
+            <a href="#contacts" class="btn">Рассчитать стоимость</a>
+        </div>
+    </section>
+
+    <main class="main-content" id="services">
+        <section class="services">
+            <h2>Наши услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>🎨 Индивидуальный дизайн</h3>
+                    <p>Вышьем ваш рисунок, надпись или логотип на худи, футболках и свитшотах.</p>
+                </div>
+                <div class="service-card">
+                    <h3>👔 Корпоративный мерч</h3>
+                    <p>Брендирование униформы для вашего бизнеса тиражом от 1 шт.</p>
+                </div>
+                <div class="service-card">
+                    <h3>🛡️ Шевроны и патчи</h3>
+                    <p>Изготовление нашивок любой сложности с креплением на липучке или термопленке.</p>
+                </div>
+            </div>
+        </section>
+
+        <aside class="sidebar" id="contacts">
+            <div class="widget">
+                <h3>📬 Свяжитесь с нами</h3>
+                <ul class="contacts-list">
+                    <li><strong>Телефон:</strong> <a href="tel:+79776975580">+7 (977) 697-55-80</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:imaklain@gmail.com">imaklain@gmail.com</a></li>
+                    <li><strong>Режим работы:</strong> Пн–Пт, 10:00 – 20:00</li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <section class="portfolio" id="portfolio">
+        <h2>Наше портфолио</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <span class="icon">👕</span>
+                <span class="label">Вышивка на одежде</span>
+                <span class="coming">Скоро добавим</span>
+            </div>
+            <div class="portfolio-item">
+                <span class="icon">🧢</span>
+                <span class="label">Брендирование кепок</span>
+                <span class="coming">Скоро добавим</span>
+            </div>
+            <div class="portfolio-item">
+                <span class="icon">🧥</span>
+                <span class="label">Корпоративные куртки</span>
+                <span class="coming">Скоро добавим</span>
+            </div>
+            <div class="portfolio-item">
+                <span class="icon">🎒</span>
+                <span class="label">Вышивка на рюкзаках</span>
+                <span class="coming">Скоро добавим</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Студия Вышивки. Все права защищены.</p>
+        <p style="margin-top: 6px; font-size: 0.85em; opacity: 0.8;">
+            <a href="mailto:imaklain@gmail.com">imaklain@gmail.com</a> · 
+            <a href="tel:+79776975580">+7 (977) 697-55-80</a>
+        </p>
+    </footer>
+
+</body>
+</html>
